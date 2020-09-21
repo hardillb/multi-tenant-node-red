@@ -24,7 +24,7 @@ services:
     networks:
       - internal 
     volumes:
-      - "./registery:/verdaccio/conf"
+      - "./registry:/verdaccio/conf"
     ports:
       - "4873:4873"
 
