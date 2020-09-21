@@ -37,6 +37,7 @@ services:
       - internal
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
+      - "./catalogue/catalogue.json:/data/catalogue.json"
     environment:
       - "VIRTUAL_HOST=manager.docker-pi.local"
       - "MONGO_URL=mongodb://mongodb/nodered"

@@ -28,4 +28,14 @@ For nginx-proxy you will have to manually build forego since the container direc
 
 You will want to change the `ROOT_DOMAIN` entry at the end of the docker-compse file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
 
-e.g. if you use a `ROOT_DOMAIN` of docker.local then you should set up a DNS entry for *.docker.local that points to the docker host. 
+e.g. if you use a `ROOT_DOMAIN` of docker.local then you should set up a DNS entry for \*.docker.local that points to the docker host.
+
+## npm
+
+The npm repository is available on port 4873 of the Docker host. You can publish new nodes to this repo under the scope of `@ben` using the username `admin` and the password `password`
+
+To add the scope to your local npm config run the following:
+
+```
+npm login --registry=http://docker.local:4873 --scope=@ben
+```

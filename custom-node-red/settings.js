@@ -270,6 +270,18 @@ module.exports = {
         projects: {
             // To enable the Projects feature, set this value to true
             enabled: false
+        },
+        page: {
+            title: "Ben-RED"
+        },
+        header: {
+            title: "Ben-RED"
+        },
+        palette: {
+            catalogues: [
+                'https://catalogue.nodered.org/catalogue.json',
+                'http://app.docker-pi.local/catalogue.json'
+            ]
         }
     },
 

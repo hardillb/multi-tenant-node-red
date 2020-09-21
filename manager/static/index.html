@@ -71,7 +71,7 @@ input.form {
 			} else {
 				document.getElementById("output").innerHTML = response.msg;
 				if (response.err) {
-					document.getElementById("output").innerHTML = response.err;
+					document.getElementById("output").innerHTML = JSON.tostring(response.err);
 				}
 			}
 		}
