@@ -39,3 +39,13 @@ To add the scope to your local npm config run the following:
 ```
 npm login --registry=http://docker.local:4873 --scope=@ben
 ```
+
+You can access the web front end for the repository on http://docker.local:4873	
+
+## Manager
+
+You can access the instance manager web app on http://manager.docker.local
+
+## Instances
+
+If you create and instance with the app name of `r1` then you would access that instance on http://r1.docker.local

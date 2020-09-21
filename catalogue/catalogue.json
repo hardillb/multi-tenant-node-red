@@ -1,6 +1,6 @@
 {
   "name":"Ben's custom catalogue",
-  "updated_at": "2020-09-05T18:37:50.673Z",
+  "updated_at": "2020-09-05T18:50:50.673Z",
   "modules": [
     {
       "id": "@ben/ben-node-random",
