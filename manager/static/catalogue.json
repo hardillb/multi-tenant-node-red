@@ -1,0 +1,17 @@
+{
+  "name":"Ben's custom catalogue",
+  "updated_at": "2020-09-05T18:37:50.673Z",
+  "modules": [
+    {
+      "id": "@ben/ben-node-random",
+      "version": "1.3.0",
+      "description": "A node-red node that generates random numbers",
+      "keywords": [
+        "node-red",
+        "random"
+      ],
+      "updated_at": "2020-09-21T18:37:50.673Z",
+      "url": "http://flows.hardill.me.uk/node/ben-red-random"
+    }
+  ]
+}

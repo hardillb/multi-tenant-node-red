@@ -1,0 +1,85 @@
+<html>
+<head>
+	<title>Multi Tenant Node-RED Manager</title>
+	<style>
+.form {
+	width: 300px;
+}
+
+label.form {
+	width: 150px;
+	float: left;
+}
+
+input.form {
+	width: 150px;
+	float: right;
+}
+
+	</style>
+</head>
+<body>
+<div class="form">
+	<label class="form" for="appName">Instance Name:</label>
+	<input class="form" id="appName" type="text">
+	<label class="form" for="email">Owner Email address:</label>
+	<input class="form" id="email" type="email">
+	<label class="form" for="password">Admin Password:</label>
+	<input class="form" id="password" type="password">
+	<label class="form" for="confirm-password">Confirm Admin Password:</label>
+	<input class="form" id="confirm-password" type="password">
+	<button id="submit" onclick="submit()">Submit</button>
+</div>
+<div id="output">
+	
+</div>
+<div id="err">
+	
+</div>
+<script type="text/javascript">
+	function submit() {
+
+		if (document.getElementById("password").value != document.getElementById("confirm-password").value) {
+			document.getElementById("output").innerHTML = "Passwords don't match";
+			return;
+		} else {
+			document.getElementById("output").innerHTML = "";
+		}
+
+
+		var payload = {
+			appname: document.getElementById("appName").value,
+			email:document.getElementById("email").value,
+			password:document.getElementById("password").value
+		}
+
+		var xhr = new XMLHttpRequest();
+
+		xhr.onload = function() {
+			console.log(xhr.status);
+			const response = JSON.parse(xhr.responseText);
+			console.log(response);
+			if (xhr.status == 201) {
+				var link = document.createElement('a');
+				link.setAttribute("href", response.url);
+				link.innerHTML=response.url;
+				setTimeout(function(){
+					document.getElementById("output").innerHTML = "";
+					document.getElementById("output").appendChild(link);
+				}, 5000);
+				document.getElementById("output").innerHTML = "Created, just waiting for instance to start";
+			} else {
+				document.getElementById("output").innerHTML = response.msg;
+				if (response.err) {
+					document.getElementById("output").innerHTML = response.err;
+				}
+			}
+		}
+
+		xhr.open("POST", "/newInstance");
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify(payload	))
+	}
+</script>
+</body>
+</html>

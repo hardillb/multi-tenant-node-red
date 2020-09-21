@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx-proxy
+    networks:
+      - internal
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    ports:
+      - "80:80"
+
+  mongodb:
+    image: mongo
+    networks:
+      - internal
+    volumes:
+      - "./mongodb:/data/db"
+    ports:
+      - "27017:27017"
+
+  registry:
+    image: verdaccio/verdaccio
+    networks:
+      - internal 
+    volumes:
+      - "./registery:/verdaccio/conf"
+    ports:
+      - "4873:4873"
+
+  manager:
+    image: manager
+    build: "./manager"
+    depends_on: mongodb
+    networks:
+      - internal
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+    environment:
+      - "VIRTUAL_HOST=manager.docker-pi.local"
+      - "MONGO_URL=mongodb://mongodb/nodered"
+      - "ROOT_DOMAIN=docker-pi.local"
+
+
+networks:
+  internal:
+    external:
+      name: "internal"
