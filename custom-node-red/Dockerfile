@@ -6,4 +6,4 @@ RUN chown -R node-red:root /data
 USER node-red
 RUN npm install --save node-red-contrib-auth-mongodb
 RUN npm install --save node-red-contrib-storage-mongodb
-RUN #npm config set @ben:registry http://registry:4873
+RUN npm config set @ben:registry http://registry:4873
