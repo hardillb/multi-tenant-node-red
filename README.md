@@ -30,7 +30,9 @@ You will want to change the `ROOT_DOMAIN` entry at the end of the docker-compse 
 
 e.g. if you use a `ROOT_DOMAIN` of docker.local then you should set up a DNS entry for \*.docker.local that points to the docker host.
 
-## npm
+## Private Node Repository
+
+### npm
 
 The npm repository is available on port 4873 of the Docker host. You can publish new nodes to this repo under the scope of `@ben` using the username `admin` and the password `password`
 
@@ -41,6 +43,10 @@ npm login --registry=http://docker.local:4873 --scope=@ben
 ```
 
 You can access the web front end for the repository on http://docker.local:4873	
+
+### Catalogue
+
+You can edit the `catalogue.json` file in the catalogue directory
 
 ## Manager
 
