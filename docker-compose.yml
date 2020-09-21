@@ -31,7 +31,8 @@ services:
   manager:
     image: manager
     build: "./manager"
-    depends_on: mongodb
+    depends_on:
+      - mongodb
     networks:
       - internal
     volumes:
