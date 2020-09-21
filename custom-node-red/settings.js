@@ -280,7 +280,7 @@ module.exports = {
         palette: {
             catalogues: [
                 'https://catalogue.nodered.org/catalogue.json',
-                'http://app.docker-pi.local/catalogue.json'
+                'http://manager.docker-pi.local/catalogue.json'
             ]
         }
     },
