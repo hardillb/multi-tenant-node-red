@@ -26,9 +26,15 @@ For nginx-proxy you will have to manually build forego since the container direc
 
 ## Configure
 
-You will want to change the `ROOT_DOMAIN` entry at the end of the docker-compse file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
+You will want to change the `VIRTUAL_HOST` and `ROOT_DOMAIN` entries at the end of the docker-compose file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
 
-e.g. if you use a `ROOT_DOMAIN` of docker.local then you should set up a DNS entry for \*.docker.local that points to the docker host.
+e.g. if you use a `ROOT_DOMAIN` of **docker.local** then you should set up a DNS entry for \*.docker.local that points to the docker host.
+
+For testing you can edit your local `/etc/hosts` file to point to the manager and application instances, eg:
+
+```
+192.168.1.100   manager.docker.local  r1.docker.local  r2.docker.local
+```
 
 ## Private Node Repository
 
@@ -42,16 +48,24 @@ To add the scope to your local npm config run the following:
 npm login --registry=http://docker.local:4873 --scope=@ben
 ```
 
-You can access the web front end for the repository on http://docker.local:4873	
+You can access the web front end for the repository on http://docker.local:4873
 
 ### Catalogue
 
-You can edit the `catalogue.json` file in the catalogue directory
+You can edit the `catalogue.json` file in the catalogue directory as required.
 
-## Manager
+
+## Start
+
+To start up the stack run
+```
+docker-compose up
+```
+
+### Manager
 
 You can access the instance manager web app on http://manager.docker.local
 
-## Instances
+### Instances
 
-If you create and instance with the app name of `r1` then you would access that instance on http://r1.docker.local
+If you create an instance with the app name of `r1` then you would access that instance on `http://r1.docker.local`  and so on.

@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   nginx:
@@ -22,7 +22,7 @@ services:
   registry:
     image: verdaccio/verdaccio
     networks:
-      - internal 
+      - internal
     volumes:
       - "./registry:/verdaccio/conf"
     ports:
