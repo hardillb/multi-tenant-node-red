@@ -7,7 +7,7 @@ A collection of Docker container that will implement a Multi Tenant Node-RED env
 Run the following commands in this directory, it will create the volumes to store the MongoDB and the NPM Node repository.
 
 ```
-mkdir registry mongodb
+mkdir mongodb
 sudo chown -R 10001:65533 registery
 sudo chown -R 999:1000 mongodb
 docker build -t custom-node-red src/custom-node-red
