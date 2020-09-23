@@ -22,7 +22,7 @@ services:
   registry:
     image: verdaccio/verdaccio
     networks:
-      - internal 
+      - internal
     volumes:
       - "./registry:/verdaccio/conf"
     ports:
