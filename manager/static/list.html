@@ -1,0 +1,145 @@
+<html>
+<head>
+	<title>List Instances</title>
+	<style>
+tr {
+	padding: 5px;
+}
+
+td {
+	border: solid 1px;
+	padding: 2px;
+}
+
+	</style>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>State</th>
+				<th>Status</th>
+				<th>Start</th>
+				<th>Stop</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody id="list">
+
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript">
+
+function populate() {
+	var xhr = new XMLHttpRequest();
+
+	xhr.onload = function() {
+		const response = JSON.parse(xhr.responseText);
+		console.log(response);
+		for (const container in response) {
+			console.log(response[container].Names[0].substring(1));
+			console.log(response[container].Id);
+			console.log(response[container].State);
+			console.log(response[container].Status);
+
+			var row = document.createElement('tr');
+
+			var name = document.createElement('td');
+			name.innerHTML = response[container].Names[0].substring(1);
+			row.appendChild(name);
+			var state = document.createElement('td');
+			state.innerHTML = response[container].State;
+			row.appendChild(state);
+			var status = document.createElement('td');
+			status.innerHTML = response[container].Status;
+			row.appendChild(status);
+
+			var start = document.createElement('td');
+			var startButton = document.createElement('button');
+			startButton.innerHTML = "Start";
+			startButton.setAttribute("onclick","start('" + response[container].Id + "')");
+			if (response[container].State == "running") {
+				startButton.setAttribute("disabled", "true");
+			}
+
+			start.appendChild(startButton);
+			row.appendChild(start);
+
+			var stop = document.createElement('td');
+			var stopButton = document.createElement('button');
+			stopButton.innerHTML = "Stop";
+			stopButton.setAttribute("onclick","stop('" + response[container].Id + "')");
+			if (response[container].State == "exited") {
+				stopButton.setAttribute("disabled", "true");
+			}
+			stop.appendChild(stopButton);
+			row.appendChild(stop);
+
+			var remove = document.createElement('td');
+			var removeButton = document.createElement('button');
+			removeButton.innerHTML = "Remove";
+			removeButton.setAttribute("onclick","remove('" + response[container].Id +"','" + response[container].Names[0].substring(1) + "')");
+			if (response[container].State == "running") {
+				removeButton.setAttribute("disabled", "true");
+			}
+			remove.appendChild(removeButton);
+			row.appendChild(remove);
+
+			document.getElementById("list").appendChild(row);
+		}
+	}
+
+	xhr.open("GET", "/instance");
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send()
+}
+
+function start(id) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		location.reload();
+	}
+
+	xhr.open("POST","/instance/"+id);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	var payload = {
+		command: "start"
+	};
+	xhr.send(JSON.stringify(payload));	
+}
+
+function stop(id) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		location.reload();
+	}
+
+	xhr.open("POST","/instance/"+id);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	var payload = {
+		command: "stop"
+	};
+	xhr.send(JSON.stringify(payload));
+}
+
+function remove(id, appname) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function() {
+		location.reload();
+	}
+
+	xhr.open("POST","/instance/"+id);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	var payload = {
+		command: "remove",
+		appname: appname
+	};
+	xhr.send(JSON.stringify(payload));
+}
+
+
+populate();
+</script>
+</html>

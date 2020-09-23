@@ -51,10 +51,10 @@ var mongoose_options = {
 
 mongoose.connect(settings.mongodb, mongoose_options)
 .then(() => {
-	logger.info("Connected to the DB");
+	logger.info("Connected to the DB " + settings.mongodb);
 })
 .catch( err => {
-	logger.info("failed to connect to db");
+	logger.info("failed to connect to DB " + settings.mongodb);
 	process.exit(-1);
 });
 const Users = require('./models/users');
@@ -80,11 +80,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/',express.static('static'));
 app.use('/',express.static('/data'));
 
-// app.get('/',function(req,res){
-// 	res.render('pages/index',{});
-// });
-
-app.post('/newInstance', function(req,res){
+app.post('/instance', function(req,res){
 	logger.debug(req.body);
 
 	Users.findOne({appname: req.body.appname}, function(err, existingUser) {
@@ -134,6 +130,78 @@ app.post('/newInstance', function(req,res){
 		}
 	})
 
+});
+
+app.get('/instance', function(req,res){
+	docker.listContainers({all: true, filters: {ancestor: ["custom-node-red"]}},function (err, containers) {
+		if (!err && containers) {
+			res.send(containers);
+		} else {
+			res.status(400).send({err: err});
+		} 
+	});
+});
+
+
+app.post('/instance/:id', function(req,res){
+	if (req.body.command) {
+		if (req.body.command == "start"){
+			var container = docker.getContainer(req.params.id);
+			container.inspect()
+			.then(info => {
+				if (!info.State.Running) {
+					return container.start()
+				} else {
+					res.status(409).send({});
+					return Promise.reject();
+				}
+			})
+			.then(data => {
+				res.status(204).send({});
+			})
+			.catch(err => {
+				res.status(500).send({err: err})
+			})
+
+		} else if (req.body.command == "stop") {
+			var container = docker.getContainer(req.params.id);
+			container.inspect()
+			.then(info => {
+				if (info.State.Running) {
+					return container.stop()
+				} else {
+					res.status(409).send({});
+					return Promise.reject();
+				}
+			})
+			.then(data => {
+				res.status(204).send({});
+			})
+			.catch(err => {
+				res.status(500).send({err: err})
+			})
+		} else if (req.body.command == "remove") {
+			var container = docker.getContainer(req.params.id);
+			container.inspect()
+			.then(info => {
+				if (!info.State.Running) {
+					return container.remove();
+				} else {
+					res.status(409).send({});
+					return Promise.reject();
+				}
+			})
+			.then(() => {
+				return Users.deleteOne({appname: appname})
+			})
+			.then( () => {
+				res.status(204).send({})
+			})
+			.catch( err => {
+				res.status(500).send({err: err})
+			})
+		}
+	}
 });
 
 const server = http.Server(app);

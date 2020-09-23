@@ -22,13 +22,19 @@ docker build -t manager ./manager
 
 When running on a amd64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the verdaccio/verdaccio and nginx-proxy containers as they only ship amd64 versions.
 
-For nginx-proxy you will have to manually build forego since the container directly downloads a pre-built amd64 bit version.
+For nginx-proxy you will have to manually build forego and dockergen since the container directly downloads a pre-built amd64 bit binaries.
 
 ## Configure
 
-You will want to change the `ROOT_DOMAIN` entry at the end of the docker-compse file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
+You will want to change the `ROOT_DOMAIN` entry at the end of the docker-compose file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
 
 e.g. if you use a `ROOT_DOMAIN` of docker.local then you should set up a DNS entry for \*.docker.local that points to the docker host.
+
+If you are running this on a small local lan then you may not have a DNS server to add the wildcard entry to, in this case you can use the 
+`hardillb/ngxin-proxy-avahi-helper` container which will add mDNS CNAMES to the docker host machine (assuming it's running the Avahi daemon) so you will
+be able to use a `.local` virtual domain to access Node-RED instances.
+
+You will want to change the `VIRTUAL_HOST` entry for the manager app as well to match the new domain (or a specific one for the management app).
 
 ## Private Node Repository
 
