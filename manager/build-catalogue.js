@@ -49,6 +49,6 @@ superagent.get(url)
 			}
 		}
 
-		console.log(JSON.stringify(catalogue, null,2));
+		console.log(JSON.stringify(catalogue, null, 2));
 	}
 });

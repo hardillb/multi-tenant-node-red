@@ -52,7 +52,11 @@ You can access the web front end for the repository on http://docker.local:4873
 
 ### Catalogue
 
-You can edit the `catalogue.json` file in the catalogue directory as required.
+You can edit the `catalogue.json` file in the catalogue directory as required using the `build-catalogue.js` in the manager directory.
+
+`node build-catalogue.js docker.local <keyword filter> > catalogue.json`
+
+Where the first argument is the hostname of the docker host and `<keyword filter` is the name of the keyword to filter the entries in the repository on.
 
 
 ## Start
