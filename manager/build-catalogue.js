@@ -22,7 +22,7 @@ const host = process.argv[2];
 
 const url = "http://" + host +  ":4873/-/all"
 
-const keyword = process.argv[3];
+const keyword = process.argv[3] ? process.argv[3] : "node-red";
 
 superagent.get(url)
 .end((err, res) => {
