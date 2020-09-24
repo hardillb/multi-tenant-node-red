@@ -1,37 +1,32 @@
 <html>
 <head>
-	<title>List Instances</title>
-	<style>
-tr {
-	padding: 5px;
-}
-
-td {
-	border: solid 1px;
-	padding: 2px;
-}
-
-	</style>
+    <title>Multi Tenant Node-RED Manager</title>
+    <link rel="stylesheet" href="picnic.min.css">
 </head>
 <body>
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>State</th>
-				<th>Status</th>
-				<th>Start</th>
-				<th>Stop</th>
-				<th>Remove</th>
-			</tr>
-		</thead>
-		<tbody id="list">
-
-		</tbody>
-	</table>
+<article class="card">
+    <header><h3>Manage Instances</h3></header>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Status</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+        </tbody>
+    </table>
+    <footer>
+    <button onclick="location.href='new.html'" type="button">Add New Instance</button>
+    </footer>
+</article>
 </body>
-<script type="text/javascript">
 
+<script type="text/javascript">
 function populate() {
 	var xhr = new XMLHttpRequest();
 
@@ -107,7 +102,7 @@ function start(id) {
 	var payload = {
 		command: "start"
 	};
-	xhr.send(JSON.stringify(payload));	
+	xhr.send(JSON.stringify(payload));
 }
 
 function stop(id) {
@@ -138,7 +133,6 @@ function remove(id, appname) {
 	};
 	xhr.send(JSON.stringify(payload));
 }
-
 
 populate();
 </script>

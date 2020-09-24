@@ -1,41 +1,29 @@
 <html>
 <head>
-	<title>Multi Tenant Node-RED Manager</title>
-	<style>
-.form {
-	width: 300px;
-}
-
-label.form {
-	width: 150px;
-	float: left;
-}
-
-input.form {
-	width: 150px;
-	float: right;
-}
-
-	</style>
+    <title>Multi Tenant Node-RED Manager</title>
+    <link rel="stylesheet" href="picnic.min.css">
 </head>
 <body>
+<article class="card" style:>
+<header><h3>Add New Instance</h3></header>
 <div class="form">
-	<label class="form" for="appName">Instance Name:</label>
-	<input class="form" id="appName" type="text">
-	<label class="form" for="email">Owner Email address:</label>
-	<input class="form" id="email" type="email">
-	<label class="form" for="password">Admin Password:</label>
-	<input class="form" id="password" type="password">
-	<label class="form" for="confirm-password">Confirm Admin Password:</label>
-	<input class="form" id="confirm-password" type="password">
-	<button id="submit" onclick="submit()">Submit</button>
+    <label class="form" for="appName">Instance Name:</label>
+    <input class="form" id="appName" type="text">
+    <label class="form" for="email">Owner Email address:</label>
+    <input class="form" id="email" type="email">
+    <label class="form" for="password">Admin Password:</label>
+    <input class="form" id="password" type="password">
+    <label class="form" for="confirm-password">Confirm Admin Password:</label>
+    <input class="form" id="confirm-password" type="password">
 </div>
-<div id="output">
-	
-</div>
-<div id="err">
-	
-</div>
+<footer>
+    <button id="submit" onclick="submit()">Submit</button>
+    <button style="float:right;" onclick="location.href='list.html'" type="button">Manage Instances</button>
+</footer>
+<div id="output"></div>
+<div id="err"></div>
+</article>
+
 <script type="text/javascript">
 	function submit() {
 
@@ -45,7 +33,6 @@ input.form {
 		} else {
 			document.getElementById("output").innerHTML = "";
 		}
-
 
 		var payload = {
 			appname: document.getElementById("appName").value,
