@@ -34,15 +34,16 @@ function populate() {
 		const response = JSON.parse(xhr.responseText);
 		console.log(response);
 		for (const container in response) {
-			console.log(response[container].Names[0].substring(1));
-			console.log(response[container].Id);
-			console.log(response[container].State);
-			console.log(response[container].Status);
+            // console.log(response[container].Names[0].substring(1));
+            // console.log(response[container].Id);
+            // console.log(response[container].State);
+            // console.log(response[container].Status);
 
 			var row = document.createElement('tr');
 
 			var name = document.createElement('td');
-			name.innerHTML = response[container].Names[0].substring(1);
+            name.innerHTML = "<b><a href=\""+location.origin.replace('manager',response[container].Names[0].subsstring(1))+"\">"+response[container].Names[0].substring(1)+"</a></b>";
+
 			row.appendChild(name);
 			var state = document.createElement('td');
 			state.innerHTML = response[container].State;
