@@ -163,7 +163,7 @@ app.post('/instance', passport.authenticate(['basic'],{session: true}), function
 app.get('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
 	docker.listContainers({all: true, filters: {ancestor: ["custom-node-red"]}},function (err, containers) {
 		if (!err && containers) {
-			res.send(containers);
+			res.send({containers:containers, domain: settings.rootDomain});
 		} else {
 			res.status(400).send({err: err});
 		} 
