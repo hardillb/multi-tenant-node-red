@@ -4,6 +4,8 @@ module.exports = {
 	// "dockerodeSettings": {
 	// 	"host": "http://192.168.1.96",
 	// 	"port": 2375
-	// }
-	dockerodeSettings: { socketPath: "/tmp/docker.sock"}
+	// },
+	"dockerodeSettings": { "socketPath": "/tmp/docker.sock"},
+	admin: "admin",
+	password: "password"
 }

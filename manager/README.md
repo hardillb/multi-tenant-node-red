@@ -19,7 +19,9 @@ e.g.
 	"dockerodeSettings": {
 		"host": "http://127.0.0.1",
 		"port": 2375
-	}
+	},
+	admin: "admin",
+	password: "password"
 }
 ```
 
@@ -29,6 +31,11 @@ or
 	"rootDomain": "docker-pi.local",
 	"dockerodeSettings": {
 		"socketPath": "/var/run/docker.sock"
-	}
+	},
+	admin: "admin",
+	password: "password"
 }
 ```
+
+ - `admin` is the admin username
+ - `password` is the admin password

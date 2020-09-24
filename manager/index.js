@@ -8,8 +8,10 @@ const Docker = require('dockerode');
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const BasicStrategy = require('passport-http').BasicStrategy;
 const SimpleNodeLogger = require('simple-node-logger');
 
 const port = (process.env.PORT || 3000);
@@ -77,14 +79,36 @@ app.use(session({
  	 // secure: true
   }
 }));
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/',express.static('static'));
-app.use('/',express.static('/data'));
+app.use(passport.initialize())
+app.use(passport.session());
 
-app.post('/instance', function(req,res){
+passport.use(new BasicStrategy(function(username, password, done){
+	if (username != settings.admin) {
+		return done(null, false);
+	}
+
+	if (password == settings.password) {
+		return done(null, {username: settings.admin})
+	} else {
+		return done(null, false);
+	}
+}));
+
+passport.serializeUser(function(user, done){
+	done(null, user.username);
+});
+passport.deserializeUser(function(id, done){
+	done(null, {username: id})
+});
+
+app.use('/',cors(), express.static('/data'));
+app.use('/',passport.authenticate(['basic'],{session: true}) , express.static('static'))
+
+
+app.post('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
 	logger.debug(req.body);
 
 	Users.findOne({appname: req.body.appname}, function(err, existingUser) {
@@ -136,7 +160,7 @@ app.post('/instance', function(req,res){
 
 });
 
-app.get('/instance', function(req,res){
+app.get('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
 	docker.listContainers({all: true, filters: {ancestor: ["custom-node-red"]}},function (err, containers) {
 		if (!err && containers) {
 			res.send(containers);
@@ -147,7 +171,7 @@ app.get('/instance', function(req,res){
 });
 
 
-app.post('/instance/:id', function(req,res){
+app.post('/instance/:id', passport.authenticate(['basic'],{session: true}), function(req,res){
 	if (req.body.command) {
 		if (req.body.command == "start"){
 			var container = docker.getContainer(req.params.id);
