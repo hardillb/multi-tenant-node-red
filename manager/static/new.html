@@ -43,9 +43,9 @@
 		var xhr = new XMLHttpRequest();
 
 		xhr.onload = function() {
-			console.log(xhr.status);
+			// console.log(xhr.status);
 			const response = JSON.parse(xhr.responseText);
-			console.log(response);
+			// console.log(response);
 			if (xhr.status == 201) {
 				var link = document.createElement('a');
 				link.setAttribute("href", response.url);
