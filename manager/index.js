@@ -192,6 +192,10 @@ app.post('/instance/:id', function(req,res){
 				}
 			})
 			.then(() => {
+				return docker.pruneVolumes();
+			})
+			.then(() => {
+				//should delete flows and settings...
 				return Users.deleteOne({appname: appname})
 			})
 			.then( () => {
