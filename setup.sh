@@ -1,4 +1,6 @@
 #!/bin/sh
+git submodules init
+git submodules update
 mkdir mongodb
 sudo chown -R 10001:65533 registry
 sudo chown -R 999:1000 mongodb

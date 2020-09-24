@@ -58,6 +58,10 @@ mongoose.connect(settings.mongodb, mongoose_options)
 	process.exit(-1);
 });
 const Users = require('./models/users');
+const Flows = require('./models/flows');
+const Settings = require('./models/settings');
+const Sessions = require('./models/sessions');
+const Library = require('./models/library');
 
 const app = express();
 	
@@ -182,6 +186,7 @@ app.post('/instance/:id', function(req,res){
 			})
 		} else if (req.body.command == "remove") {
 			var container = docker.getContainer(req.params.id);
+			var appname = req.body.appname;
 			container.inspect()
 			.then(info => {
 				if (!info.State.Running) {
@@ -196,12 +201,20 @@ app.post('/instance/:id', function(req,res){
 			})
 			.then(() => {
 				//should delete flows and settings...
-				return Users.deleteOne({appname: appname})
+				return Promise.all([
+						Users.deleteOne({appname: appname}),
+						Flows.deleteOne({appname: appname}),
+						Settings.deleteOne({appname: appname}),
+						Sessions.deleteOne({appname: appname}),
+						Library.deleteMany({appname: appname})
+					])
 			})
 			.then( () => {
+				console.log("cleared db")
 				res.status(204).send({})
 			})
 			.catch( err => {
+				console.log(err);
 				res.status(500).send({err: err})
 			})
 		}

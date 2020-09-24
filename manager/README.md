@@ -1,6 +1,9 @@
 # Multi Tenant Node-RED management app
 
-This is a small web app to stand up new Node-RED instances using Docker.
+A small web app to stand up new Node-RED instances using Docker.
+
+This is meant to purely be a PoC, a real production deployment would require a lot
+more features.
 
 ## Configure
 
@@ -11,6 +14,7 @@ schema used by [dockerode](https://www.npmjs.com/package/dockerode)
 e.g.
 
 ```{
+	"mongodb": "mongodb://docker-pi.local/nodered",
 	"rootDomain": "docker-pi.local",
 	"dockerodeSettings": {
 		"host": "http://127.0.0.1",
@@ -21,6 +25,7 @@ e.g.
 
 or
 ```{
+	"mongodb": "mongodb://docker-pi.local/nodered",
 	"rootDomain": "docker-pi.local",
 	"dockerodeSettings": {
 		"socketPath": "/var/run/docker.sock"
