@@ -29,8 +29,14 @@ For testing you can edit your local `/etc/hosts` file to point to the manager an
 ```
 
 If you are running this on a small local lan then you may not have a DNS server to add the wildcard entry to, in this case you can use the 
-`hardillb/ngxin-proxy-avahi-helper` container which will add mDNS CNAMES to the docker host machine (assuming it's running the Avahi daemon) so you will
+`hardillb/nginx-proxy-avahi-helper` container which will add mDNS CNAMES to the docker host machine (assuming it's running the Avahi daemon) so you will
 be able to use a `.local` virtual domain to access Node-RED instances.
+
+You can run the `hardillb/nginx-proxy-avahi-helper` with the following command
+
+`docker run -d -v /var/run/docker.sock:/tmp/docker.sock -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket hardillb/nginx-proxy-avahi-helper`
+
+If you see AppArmor errors in the logs for this container then you need to add the `--priviledged` option to the command line.
 
 You will want to change the `VIRTUAL_HOST` entry for the manager app as well to match the new domain (or a specific one for the management app).
 
