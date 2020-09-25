@@ -7,5 +7,6 @@ module.exports = {
 	// },
 	"dockerodeSettings": { "socketPath": "/tmp/docker.sock"},
 	admin: "admin",
-	password: "password"
+	password: "password",
+	logHistory: 250
 }
