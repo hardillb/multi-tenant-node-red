@@ -54,7 +54,9 @@ function connect() {
 	ws = new WebSocket(`ws://${location.host}` + "/" + selected.options[selected.selectedIndex].value);
 	var log = document.getElementById('log');
 	ws.onmessage = async function(data) {
-		log.innerText = log.innerText + await data.data.text();
+		var line = await data.data.text();
+		console.log(line);
+		log.innerText = log.innerText + line;
 	}
 	document.getElementById('connect').setAttribute("disabled", "true");
 	document.getElementById('disconnect').removeAttribute("disabled");
