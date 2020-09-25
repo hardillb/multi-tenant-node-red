@@ -1,8 +1,10 @@
 const fs = require('fs');
+const ws = require('ws');
 const cors = require('cors');
 const http = require('http');
 const path = require('path');
 const util = require('util');
+const stream = require('stream');
 const morgan = require('morgan');
 const Docker = require('dockerode');
 const express = require('express');
@@ -246,6 +248,44 @@ app.post('/instance/:id', passport.authenticate(['basic'],{session: true}), func
 });
 
 const server = http.Server(app);
+const wss = new ws.Server({ clientTracking: false, noServer: true });
+
+server.on('upgrade', function(req, socket, head){
+
+	//should do authentication here
+	wss.handleUpgrade(req, socket, head, function (ws) {
+    wss.emit('connection', ws, req);
+  });
+});
+
+wss.on('connection',function(ws, req){
+	const containerId = req.url.substring(1);
+
+	const container = docker.getContainer(containerId);
+	var inStream;
+	const logStream = new stream.PassThrough();
+
+	logStream.on('data', (chunk) => {
+		ws.send(chunk);
+	})
+
+	container.logs({stdout: true, stderr: true, follow: true, tail: 20})
+	.then(logs => {
+		inStream = logs;
+		return container.modem.demuxStream(logs, logStream, logStream);
+	})
+	.catch( err => {
+		console.log("err");
+	});
+
+	ws.on('close', function(){
+		if (inStream) {
+			inStream.destroy();
+		}
+		logStream.end();
+	});
+
+})
 
 server.listen(port, host, function(){
 	logger.info(util.format('App listening on  %s:%d!', host, port));
