@@ -1,13 +1,17 @@
 <html>
 <head>
-    <title>Multi Tenant Node-RED Manager</title>
+    <title>Multi-Tenant Node-RED Manager</title>
     <link rel="stylesheet" href="picnic.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <button onclick="location.href='new.html'" type="button">Add New Instance</button>
-        <button onclick="location.href='list.html'" type="button">Manage Instances</button>
-        <button onclick="location.href='logs.html'" type="button">View Instance Logs</button>
-    </div>
+    <nav>
+        <a href="/" class="brand"><span>Multi Tenant Node-RED</span></a>
+        <div class="menu">
+            <a href="new.html" class="button">Add New Instance</a>
+            <a href="list.html" class="button">Manage Instances</a>
+            <a href="logs.html" class="button">View Instance Logs</a>
+        </div>
+    </nav>
 </body>
 </html>

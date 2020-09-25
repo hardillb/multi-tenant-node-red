@@ -3,21 +3,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Container Logs</title>
-	<link rel="stylesheet" href="picnic.min.css">
+    <link rel="stylesheet" href="picnic.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div>
-		<button onclick="location.href='new.html'" type="button">Add New Instance</button>
-    <button onclick="location.href='list.html'" type="button">Manage Instances</button>
-	</div>
-	<div>
+    <nav>
+        <a href="/" class="brand"><span>Multi-Tenant Node-RED</span></a>
+        <div class="menu">
+            <a href="new.html" class="button">Add New Instance</a>
+            <a href="list.html" class="button">Manage Instances</a>
+            <a href="logs.html" class="button" disabled>View Instance Logs</a>
+        </div>
+        <br/>
 		<select name="container" id="container">
 		</select>
 		<button onclick="connect()" id="connect">Connect</button>
 		<button onclick="clearLog()">Clear</button>
-		<button onclick="disconnect()" id="disconnect" disabled="">Disconnect</button>
-	</div>
-	<div style="font-family: monospace, monospace; font-size: small;" id="log"></div>
+        <button onclick="disconnect()" id="disconnect" disabled="">Disconnect</button>
+    </nav>
+    <section class="loglist">
+	    <div style="font-family: monospace, monospace; font-size: small;" id="log"></div>
+    </section>
 </body>
 <script>
 

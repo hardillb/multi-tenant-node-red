@@ -18,7 +18,6 @@ const SimpleNodeLogger = require('simple-node-logger');
 
 const port = (process.env.PORT || 3000);
 const host = (process.env.HOST || '0.0.0.0');
-
 const cookieSecret = (process.env.COOKIE_SECRET || 'qscplmvb');
 
 const settings = require('./settings.js');
@@ -50,7 +49,9 @@ logger.setLevel(logLevel);
 
 var mongoose_options = {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
 };
 
 mongoose.connect(settings.mongodb, mongoose_options)
@@ -66,9 +67,8 @@ const Flows = require('./models/flows');
 const Settings = require('./models/settings');
 const Sessions = require('./models/sessions');
 const Library = require('./models/library');
-
 const app = express();
-	
+
 app.enable('trust proxy');
 //app.use(morgan("combined", {stream: accessLogStream}));
 app.use(morgan("combined"));
@@ -78,7 +78,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
- 	 // secure: true
+ 	// secure: true
   }
 }));
 app.use(bodyParser.json());
@@ -168,7 +168,7 @@ app.get('/instance', passport.authenticate(['basic'],{session: true}), function(
 			res.send({containers:containers, domain: settings.rootDomain});
 		} else {
 			res.status(400).send({err: err});
-		} 
+		}
 	});
 });
 
@@ -251,7 +251,6 @@ const server = http.Server(app);
 const wss = new ws.Server({ clientTracking: false, noServer: true });
 
 server.on('upgrade', function(req, socket, head){
-
 	//should do authentication here
 	wss.handleUpgrade(req, socket, head, function (ws) {
     wss.emit('connection', ws, req);
@@ -260,7 +259,6 @@ server.on('upgrade', function(req, socket, head){
 
 wss.on('connection',function(ws, req){
 	const containerId = req.url.substring(1);
-
 	const container = docker.getContainer(containerId);
 	var inStream;
 	const logStream = new stream.PassThrough();

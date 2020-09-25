@@ -1,11 +1,19 @@
 <html>
 <head>
-    <title>Multi Tenant Node-RED Manager</title>
+    <title>Multi-Tenant Node-RED Manager</title>
     <link rel="stylesheet" href="picnic.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<article class="card" style:>
-<header><h3>Add New Instance</h3></header>
+<nav>
+    <a href="/" class="brand"><span>Multi-Tenant Node-RED</span></a>
+    <div class="menu">
+        <a href="new.html" class="button" disabled>Add New Instance</a>
+        <a href="list.html" class="button">Manage Instances</a>
+        <a href="logs.html" class="button">View Instance Logs</a>
+    </div>
+</nav>
+<section>
 <div class="form">
     <label class="form" for="appName">Instance Name:</label>
     <input class="form" id="appName" type="text">
@@ -15,14 +23,11 @@
     <input class="form" id="password" type="password">
     <label class="form" for="confirm-password">Confirm Admin Password:</label>
     <input class="form" id="confirm-password" type="password">
-</div>
-<footer>
     <button id="submit" onclick="submit()">Submit</button>
-    <button style="float:right;" onclick="location.href='list.html'" type="button">Manage Instances</button>
-</footer>
+</div>
 <div id="output"></div>
 <div id="err"></div>
-</article>
+</section>
 
 <script type="text/javascript">
 	function submit() {
