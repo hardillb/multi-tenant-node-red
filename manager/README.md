@@ -7,7 +7,7 @@ more features.
 
 ## Configure
 
-Edit the `settings.json` file to set the root domain for new instances and with
+Edit the `settings.js` file to set the root domain for new instances and with
 details about how to connect to Docker. The Docker settings should use the same
 schema used by [dockerode](https://www.npmjs.com/package/dockerode)
 
