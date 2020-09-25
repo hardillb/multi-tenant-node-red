@@ -269,7 +269,9 @@ wss.on('connection',function(ws, req){
 		ws.send(chunk);
 	})
 
-	container.logs({stdout: true, stderr: true, follow: true, since:(5 * 60 * 1000) })
+	var fiveMins = Date.now() - ( 5 * 60 ); 
+
+	container.logs({stdout: true, stderr: true, follow: true, tail: 50 })
 	.then(logs => {
 		inStream = logs;
 		return container.modem.demuxStream(logs, logStream, logStream);
