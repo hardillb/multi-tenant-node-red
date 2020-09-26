@@ -1,32 +1,34 @@
 <html>
 <head>
-    <title>Multi Tenant Node-RED Manager</title>
+    <title>Multi-Tenant Node-RED Manager</title>
     <link rel="stylesheet" href="picnic.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<article class="card">
-    <header><h3>Manage Instances</h3></header>
-    <table>
+<nav>
+    <a href="/" class="brand"><span>Multi-Tenant Node-RED</span></a>
+    <div class="menu">
+        <a href="new.html" class="button">Add New Instance</a>
+        <a href="list.html" class="button" disabled>Manage Instances</a>
+        <a href="logs.html" class="button">View Instance Logs</a>
+    </div>
+</nav>
+<section>
+    <table width="100%">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>State</th>
                 <th>Status</th>
-                <th>Start</th>
-                <th>Stop</th>
-                <th>Remove</th>
+                <th width="10%">Start</th>
+                <th width="10%">Stop</th>
+                <th width="10%">Remove</th>
             </tr>
         </thead>
         <tbody id="list">
         </tbody>
     </table>
-    <footer>
-    <div>
-    	<button onclick="location.href='new.html'" type="button">Add New Instance</button>
-    	<button onclick="location.href='logs.html'" type="button">View Instance Logs</button>
-  	</div>
-    </footer>
-</article>
+</section>
 </body>
 
 <script type="text/javascript">
