@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Container Logs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<title>Multi-Tenant Node-RED Manager</title>
     <link rel="stylesheet" href="picnic.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -60,11 +60,11 @@ function connect() {
 	var selected = document.getElementById("container");
 	ws = new WebSocket(`ws://${location.host}` + "/" + selected.options[selected.selectedIndex].value);
 	var log = document.getElementById('log');
-	ws.onmessage = async function(data) {
-		var line = await data.data.text();
-		console.log(line);
-		log.innerText = log.innerText + line;
-	}
+    ws.onmessage =  function(event) {
+        var line = event.data;
+        // console.log(line);
+        log.innerText = log.innerText + line;
+    };
 	document.getElementById('connect').setAttribute("disabled", "true");
 	document.getElementById('disconnect').removeAttribute("disabled");
 }

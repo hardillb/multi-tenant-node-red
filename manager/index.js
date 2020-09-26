@@ -109,7 +109,6 @@ passport.deserializeUser(function(id, done){
 app.use('/',cors(), express.static('/data'));
 app.use('/',passport.authenticate(['basic'],{session: true}) , express.static('static'))
 
-
 app.post('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
 	logger.debug(req.body);
 
@@ -159,7 +158,6 @@ app.post('/instance', passport.authenticate(['basic'],{session: true}), function
 			})
 		}
 	})
-
 });
 
 app.get('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
@@ -191,7 +189,7 @@ app.post('/instance/:id', passport.authenticate(['basic'],{session: true}), func
 			})
 			.catch(err => {
 				res.status(500).send({err: err})
-			})
+            })
 
 		} else if (req.body.command == "stop") {
 			var container = docker.getContainer(req.params.id);
@@ -264,7 +262,7 @@ wss.on('connection',function(ws, req){
 	const logStream = new stream.PassThrough();
 
 	logStream.on('data', (chunk) => {
-		ws.send(chunk);
+        ws.send(chunk.toString("binary"));
 	})
 
 	container.logs({stdout: true, stderr: true, follow: true, tail: settings.logHistory })
@@ -282,7 +280,6 @@ wss.on('connection',function(ws, req){
 		}
 		logStream.end();
 	});
-
 })
 
 server.listen(port, host, function(){
