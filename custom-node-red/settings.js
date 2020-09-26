@@ -69,7 +69,7 @@ module.exports = {
 
     // To enabled pretty-printing of the flow within the flow file, set the following
     //  property to true:
-    //flowFilePretty: true,
+    flowFilePretty: true,
 
     // By default, credentials are encrypted in storage using a generated key. To
     // specify your own secret, set the following property.
@@ -272,10 +272,10 @@ module.exports = {
             enabled: false
         },
         page: {
-            title: "Ben-RED"
+            title: process.env["APP_NAME"]
         },
         header: {
-            title: "Ben-RED"
+            title: process.env["APP_NAME"]
         },
         palette: {
             catalogues: [
