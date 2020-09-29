@@ -46,7 +46,10 @@ If you see AppArmor errors in the logs for this container then you need to add t
 
 There are 2 options for settings up HTTPS.
 
-nginx-proxy/docker-letsencrypt-nginx-proxy-companion
+ - Set up a single wildcard certificate to match the wildcard DNS entry, this means you only have to manage a single certificate for all Node-RED instances
+
+ - Use something like nginx-proxy/docker-letsencrypt-nginx-proxy-companion which will generate a LetsEncrypt certificate for each instance (as well and renewing it when needed).
+
 
 ## Private Node Repository
 
