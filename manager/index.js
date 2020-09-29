@@ -112,6 +112,9 @@ app.use('/',passport.authenticate(['basic'],{session: true}) , express.static('s
 app.post('/instance', passport.authenticate(['basic'],{session: true}), function(req,res){
 	logger.debug(req.body);
 
+	var appname = req.body.appname
+	var hostname = req.body.appname + "." + settings.rootDomain
+
 	Users.findOne({appname: req.body.appname}, function(err, existingUser) {
 		if (existingUser) {
 			res.status(409).send({msg: "App Name already exists"});
@@ -128,28 +131,34 @@ app.post('/instance', passport.authenticate(['basic'],{session: true}), function
 				return u.save()
 			})
 			.then(() => {
-				return docker.createContainer({
-				  Image: "custom-node-red",
-				  name: req.body.appname,
-				  Env: [
-				    "VIRTUAL_HOST=" + req.body.appname + "." + settings.rootDomain,
-				    "APP_NAME="+ req.body.appname,
+				
+				var contOptions = {
+					Image: "custom-node-red",
+					name: appname,
+					Env: [
+						"VIRTUAL_HOST=" + hostname,
+				    "APP_NAME="+ appname,
 				    "MONGO_URL=mongodb://mongodb/nodered"
-				  ],
-				  AttachStdin: false,
+					],
+					Labels: {
+						"traefik.enable": "true"
+					},
+					AttachStdin: false,
 				  AttachStdout: false,
 				  AttachStderr: false,
 				  HostConfig: {
 				    NetworkMode: "internal"
 				  }
-				})
+				};
+				contOptions["traefik.http.routers." + appname + ".rule" ] = "HOST(" + hostname + ")"
+				return docker.createContainer(contOptions)
 				.then(container => {
 			  	console.log("created");
 			  	cont = container;
 			  	return container.start()
 				})
 				.then(() => {
-					res.status(201).send({started: true, url: "http://" + req.body.appname + "." + settings.rootDomain});
+					res.status(201).send({started: true, url: "http://" + hostname});
 				})
 				.catch(err => {
 					logger.debug(err);
