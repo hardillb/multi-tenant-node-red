@@ -59,8 +59,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.manager.rule=HOST(`manager.docker-pi.local`)"
-      - "traefik.http.services.manager.loadbalancer.server.port=1880"
-      - "traefik.http.routers.manager.entrypoints=web""
+      - "traefik.http.services.manager.loadbalancer.server.port=3000"
+      - "traefik.http.routers.manager.entrypoints=web"
 
 
 networks:
