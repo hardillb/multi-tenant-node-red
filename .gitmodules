@@ -1,3 +1,0 @@
-[submodule "manager/models"]
-	path = manager/models
-	url = https://github.com/hardillb/node-red-contrib-mongo-models.git
