@@ -17,12 +17,18 @@ services:
   #     - "--entrypoints.web.address=:80"
   #     - "--api.dashboard=true"
   #     - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+  #     - "--providers.docker.exposedByDefault=false"
+  #     - "--providers.docker.network=internal"
   #   networks:
   #     - internal
   #   volumes:
   #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
   #   ports:
   #     - "80:80"
+  #   deploy:
+  #     placement:
+  #       constraints:
+  #         - "node.role==manager"
 
   mongodb:
     image: mongo
