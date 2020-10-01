@@ -1,4 +1,4 @@
-FROM nodered/node-red:latest-minimal
+FROM nodered/node-red:latest-12-minimal
 
 COPY settings.js /data/
 USER root
