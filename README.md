@@ -6,6 +6,12 @@ A collection of Docker container that will implement a Multi Tenant Node-RED env
 
 Run the `setup.sh` script to create the required directories and set the right ownership/permissions.
 
+If run with no arguments `setup.sh` will default to using the current machine's hostname with `.local` appended as it's root domain, otherwise it will take the first argument as the root domain. e.g.
+
+```
+$ ./setup.sh example.com
+```
+
 And if you are running on a Docker Swarm deployment you will need to build the management app's container manually with.
 
 ```
@@ -18,23 +24,23 @@ For nginx-proxy you will have to manually build forego and dockergen since the c
 
 ## Configure
 
-You will want to change the `VIRTUAL_HOST` and `ROOT_DOMAIN` entries at the end of the docker-compose file to match the domain you want to host the Node-RED instances on. You will also want to set up a wildcard DNS entry that points to the host machine.
+### DNS
 
-e.g. if you use a `ROOT_DOMAIN` of **docker.local** then you should set up a DNS entry for \*.docker.local that points to the docker host.
+The `VIRTUAL_HOST` and `ROOT_DOMAIN` entries at the end of the docker-compose file will have been updated by the `setup.sh` script,  you will want to set up a wildcard DNS entry that points to the host machine.
+
+e.g. if you use a `ROOT_DOMAIN` of **example.com** then you should set up a DNS entry for \*.example.com that points to the docker host.
 
 For testing you can edit your local `/etc/hosts` file to point to the manager and application instances, eg:
 
 ```
-192.168.1.100   manager.docker.local  r1.docker.local  r2.docker.local
+192.168.1.100   manager.example.com  r1.example.com  r2.example.com
 ```
-
-You will want to change the `VIRTUAL_HOST` entry for the manager app as well to match the new domain (or a specific one for the management app).
 
 ### Avahi
 
-If you are running this on a small local lan then you may not have a DNS server to add the wildcard entry to, in this case you can use the 
-`hardillb/nginx-proxy-avahi-helper` container which will add mDNS CNAMES to the docker host machine (assuming it's running the Avahi daemon) so you will
-be able to use a `.local` virtual domain to access Node-RED instances.
+If you are running this on a small local lan then you may not have a DNS server to add the wildcard entry to, in this case you can 
+use the `hardillb/nginx-proxy-avahi-helper` container which will add mDNS CNAMES to the docker host machine (assuming it's running 
+the Avahi daemon) so you will be able to use a `.local` virtual domain to access Node-RED instances.
 
 You can run the `hardillb/nginx-proxy-avahi-helper` with the following command
 
@@ -65,7 +71,8 @@ npm login --registry=http://docker.local:4873 --scope=@ben
 
 Once this is setup you can publish any package with the scope `@ben` to that repository with the normal `npm publish` command
 
-You can access the web front end for the repository on http://docker.local:4873
+You can access the web front end for the repository on port 4873 of the docker host (you can map this to a custom domain by adding 
+a `VIRTUAL_HOST` environment variable to the registry entry in the docker_compose.yml file)
 
 ### Catalogue
 
@@ -85,8 +92,8 @@ docker-compose up
 
 ### Manager
 
-You can access the instance manager web app on http://manager.docker.local
+You can access the instance manager web app on http://manager.example.com
 
 ### Instances
 
-If you create an instance with the app name of `r1` then you would access that instance on `http://r1.docker.local`  and so on.
+If you create an instance with the app name of `r1` then you would access that instance on http://r1.example.com  and so on.
