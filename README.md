@@ -66,7 +66,7 @@ The npm repository is available on port 4873 of the Docker host. You can publish
 To add the scope to your local npm config run the following:
 
 ```
-npm login --registry=http://docker.local:4873 --scope=@ben
+npm login --registry=http://example.com:4873 --scope=@ben
 ```
 
 Once this is setup you can publish any package with the scope `@ben` to that repository with the normal `npm publish` command
@@ -78,7 +78,7 @@ a `VIRTUAL_HOST` environment variable to the registry entry in the docker_compos
 
 You can edit the `catalogue.json` file in the catalogue directory as required using the `build-catalogue.js` in the manager directory.
 
-`node build-catalogue.js docker.local [keyword filter] > catalogue.json`
+`node build-catalogue.js example.com [keyword filter] > catalogue.json`
 
 Where the first argument is the hostname of the docker host and `<keyword filter` (defaults to `node-red`) is the name of the keyword to filter the entries in the repository on.
 
