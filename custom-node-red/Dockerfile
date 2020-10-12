@@ -5,4 +5,4 @@ USER root
 RUN chown -R node-red:root /data
 USER node-red
 RUN npm install --no-fund --no-update-notifier --save node-red-contrib-auth-mongodb node-red-contrib-storage-mongodb
-RUN npm config set @ben:registry http://registry:4873
+RUN npm config set @private:registry http://registry:4873
