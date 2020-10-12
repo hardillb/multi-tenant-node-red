@@ -36,6 +36,8 @@ For testing you can edit your local `/etc/hosts` file to point to the manager an
 192.168.1.100   manager.example.com  r1.example.com  r2.example.com
 ```
 
+Where `1922.168.1.100` is the ip address of the docker host.
+
 ### Avahi
 
 If you are running this on a small local lan then you may not have a DNS server to add the wildcard entry to, in this case you can 
@@ -61,15 +63,15 @@ There are 2 options for settings up HTTPS.
 
 ### npm
 
-The npm repository is available on port 4873 of the Docker host. You can publish new nodes to this repo under the scope of `@ben` using the username `admin` and the password `password`
+The npm repository is available on port 4873 of the Docker host. You can publish new nodes to this repo under the scope of `@private` using the username `admin` and the password `password`
 
 To add the scope to your local npm config run the following:
 
 ```
-npm login --registry=http://example.com:4873 --scope=@ben
+npm login --registry=http://example.com:4873 --scope=@private
 ```
 
-Once this is setup you can publish any package with the scope `@ben` to that repository with the normal `npm publish` command
+Once this is setup you can publish any package with the scope `@private` to that repository with the normal `npm publish` command
 
 You can access the web front end for the repository on port 4873 of the docker host (you can map this to a custom domain by adding 
 a `VIRTUAL_HOST` environment variable to the registry entry in the docker_compose.yml file)
