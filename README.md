@@ -24,9 +24,9 @@ And if you are running on a Docker Swarm deployment you will need to build the m
 docker build -t manager ./manager
 ```
 
-When running on a AMD64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the verdaccio/verdaccio and nginx-proxy containers as they only ship amd64 versions.
+When running on a AMD64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the verdaccio/verdaccio and nginx-proxy containers as they only ship AMD64 versions.
 
-For nginx-proxy you will have to manually build forego and dockergen since the container directly downloads a pre-built AMD64 bit binaries.
+Until [this](https://github.com/nginx-proxy/nginx-proxy/pull/1470) pull-request is merged into nginx-proxy you will have to manually build forego and dockergen since the container directly downloads a pre-built AMD64 bit binaries.
 
 ## Configure
 
@@ -58,12 +58,17 @@ If you see AppArmor errors in the logs for this container then you need to add t
 
 ### HTTPS
 
-There are 2 options for settings up HTTPS.
+There are 3 options for setting up HTTPS support.
 
- - Set up a single wildcard certificate to match the wildcard DNS entry, this means you only have to manage a single certificate for all Node-RED instances
+ - Set up a single wildcard certificate to match the wildcard DNS entry, this means you only have to manage a single certificate for all Node-RED instances. The certificate/key pair for example.com should be named `example.com.crt` and `example.com.key` and placed in the certs directory. Uncomment the line in the volumes section of the nginx service in docker-compose.yml
+
+ - Add a certificate and key per instance to the certs directory with names matching the `VIRTUAL_HOST` entry e.g. for an instance named foo, `foo.example.com.crt` and `foo.example.com.key`
 
  - Use something like nginx-proxy/docker-letsencrypt-nginx-proxy-companion which will generate a LetsEncrypt certificate for each instance (as well and renewing it when needed).
 
+For both you will need to uncomment the `- "443:443"` line in the ports section of the nginx service in docker-compose.yml.
+
+You can check out more details [here](https://github.com/nginx-proxy/nginx-proxy#ssl-support)
 
 ## Private Node Repository
 
