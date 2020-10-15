@@ -278,6 +278,7 @@ module.exports = {
             title: process.env["APP_NAME"]
         },
         palette: {
+            upload: false,
             catalogues: [
                 'https://catalogue.nodered.org/catalogue.json',
                 'http://manager.docker-pi.local/catalogue.json'
