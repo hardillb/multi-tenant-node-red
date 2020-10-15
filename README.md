@@ -2,6 +2,12 @@
 
 A collection of Docker container that will implement a Multi Tenant Node-RED environment.
 
+## Download
+
+```
+$ git clone --recurse-submodules git@github.com:hardillb/multi-tenant-node-red.git
+```
+
 ## Pre-reqs
 
 Run the `setup.sh` script to create the required directories and set the right ownership/permissions.
