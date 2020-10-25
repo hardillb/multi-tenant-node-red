@@ -93,7 +93,7 @@ You can edit the `catalogue.json` file in the catalogue directory as required us
 
 `node build-catalogue.js example.com [keyword filter] > catalogue.json`
 
-Where the first argument is the hostname of the docker host and `<keyword filter` (defaults to `node-red`) is the name of the keyword to filter the entries in the repository on.
+Where the first argument is the hostname of the docker host and `[keyword filter]` (defaults to `node-red`) is the name of the keyword to filter the entries in the repository on.
 
 
 ## Start
