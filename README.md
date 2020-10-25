@@ -84,7 +84,7 @@ npm login --registry=http://example.com:4873 --scope=@private
 
 Once this is setup you can publish any package with the scope `@private` to that repository with the normal `npm publish` command
 
-You can access the web front end for the repository on port 4873 of the docker host (you can map this to a custom domain by adding 
+You can access the web front end for the repository on port 4873 of the docker host (you can map this to a custom domain and port 80 by adding 
 a `VIRTUAL_HOST` environment variable to the registry entry in the docker_compose.yml file)
 
 ### Catalogue
