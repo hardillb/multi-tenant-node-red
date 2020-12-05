@@ -5,7 +5,7 @@ A collection of Docker container that will implement a Multi Tenant Node-RED env
 ## Download
 
 ```
-$ git clone --recurse-submodules git@github.com:hardillb/multi-tenant-node-red.git
+$ git clone --recurse-submodules https://github.com/hardillb/multi-tenant-node-red.git
 ```
 
 ## Pre-reqs
@@ -91,7 +91,7 @@ a `VIRTUAL_HOST` environment variable to the registry entry in the docker_compos
 
 You can edit the `catalogue.json` file in the catalogue directory as required using the `build-catalogue.js` in the manager directory.
 
-`node build-catalogue.js example.com [keyword filter] > catalogue.json`
+`node build-catalogue.js example.com [keyword filter] > ../catalogue/catalogue.json`
 
 Where the first argument is the hostname of the docker host and `[keyword filter]` (defaults to `node-red`) is the name of the keyword to filter the entries in the repository on.
 
