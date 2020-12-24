@@ -42,7 +42,7 @@ For testing you can edit your local `/etc/hosts` file to point to the manager an
 192.168.1.100   manager.example.com  r1.example.com  r2.example.com
 ```
 
-Where `1922.168.1.100` is the ip address of the docker host.
+Where `192.168.1.100` is the IP address of the Docker host.
 
 ### Avahi
 
