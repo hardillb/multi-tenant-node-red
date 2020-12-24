@@ -24,7 +24,7 @@ And if you are running on a Docker Swarm deployment you will need to build the m
 docker build -t manager ./manager
 ```
 
-When running on a AMD64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the verdaccio/verdaccio and nginx-proxy containers as they only ship AMD64 versions.
+When running on a AMD64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio) and nginx-proxy containers as they only ship AMD64 versions.
 
 Until [this](https://github.com/nginx-proxy/nginx-proxy/pull/1470) pull-request is merged into nginx-proxy you will have to manually build forego and dockergen since the container directly downloads a pre-built AMD64 bit binaries.
 
