@@ -51,7 +51,7 @@ services:
       - "4873:4873"
 
   catalogue:
-    images: catalogue
+    image: catalogue
     build: "./catalogue"
     networks:
       - internal
