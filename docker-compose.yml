@@ -55,11 +55,10 @@ services:
     build: "./catalogue"
     networks:
       - internal
-    ports:
-      - "80:3000"
     depends_on:
       - registry
     environment:
+      - "PORT=80"
       - "VIRTUAL_HOST=catalogue.docker-pi.local"
       - "ROOT_DOMAIN=docker-pi.local"
     labels:
