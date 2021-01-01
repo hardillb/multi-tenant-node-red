@@ -101,7 +101,7 @@ Where the first argument is the hostname of the docker host and `[keyword filter
 
 To start up the stack run
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 ### Manager

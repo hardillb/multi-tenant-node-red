@@ -58,7 +58,6 @@ services:
     depends_on:
       - registry
     environment:
-      - "PORT=80"
       - "VIRTUAL_HOST=catalogue.docker-pi.local"
       - "ROOT_DOMAIN=docker-pi.local"
     labels:
