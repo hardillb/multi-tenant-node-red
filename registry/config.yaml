@@ -17,3 +17,8 @@ packages:
     proxy: npmjs
 logs:
   - {type: stdout, format: pretty, level: http}
+notify:
+  method: POST
+  headers: [{'Content-Type': 'application/json'}]
+  endpoint: http://catalogue/update
+  content: '{"name": "{{name}}", "versions": "{{versions}}", "dist-tags": "{{dist-tags}}"}'

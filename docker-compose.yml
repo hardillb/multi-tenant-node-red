@@ -50,6 +50,24 @@ services:
     ports:
       - "4873:4873"
 
+  catalogue:
+    images: catalogue
+    build: "./catalogue"
+    networks:
+      - internal
+    ports:
+      - "80:3000"
+    depends_on:
+      - registry
+    environment:
+      - "VIRTUAL_HOST=catalogue.docker-pi.local"
+      - "ROOT_DOMAIN=docker-pi.local"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.manager.rule=HOST(`catalogue.docker-pi.local`)"
+      - "traefik.http.services.manager.loadbalancer.server.port=80"
+      - "traefik.http.routers.manager.entrypoints=web"
+
   manager:
     image: manager
     build: "./manager"
@@ -59,7 +77,6 @@ services:
       - internal
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
-      - "./catalogue:/data"
     environment:
       - "VIRTUAL_HOST=manager.docker-pi.local"
       - "MONGO_URL=mongodb://mongodb/nodered"

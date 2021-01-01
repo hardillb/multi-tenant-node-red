@@ -1,3 +1,6 @@
 [submodule "manager"]
 	path = manager
 	url = https://github.com/hardillb/multi-tenant-node-red-manager.git
+[submodule "catalogue"]
+	path = catalogue
+	url = https://github.com/hardillb/node-red-private-catalogue-builder.git

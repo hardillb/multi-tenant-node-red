@@ -18,10 +18,11 @@ If run with no arguments `setup.sh` will default to using the current machine's 
 $ ./setup.sh example.com
 ```
 
-And if you are running on a Docker Swarm deployment you will need to build the management app's container manually with.
+And if you are running on a Docker Swarm deployment you will need to build the management app and the catalogue containers manually with.
 
 ```
-docker build -t manager ./manager
+$ docker build -t manager ./manager
+$ docker build -t catalogue ./catalogue
 ```
 
 When running on a AMD64 based host everything should be fine, if you want to run on ARM64 then you  will need to rebuild the [verdaccio/verdaccio](https://github.com/verdaccio/verdaccio) and nginx-proxy containers as they only ship AMD64 versions.
