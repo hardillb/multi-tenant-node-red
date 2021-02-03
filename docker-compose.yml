@@ -38,8 +38,8 @@ services:
       - internal
     volumes:
       - "./mongodb:/data/db"
-    ports:
-      - "27017:27017"
+    # ports:
+    #   - "27017:27017"
 
   registry:
     image: verdaccio/verdaccio
