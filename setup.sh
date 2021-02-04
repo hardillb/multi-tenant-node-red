@@ -11,7 +11,7 @@ then
 else
   hn=$1
 fi
-sed -i -e "s/docker-pi.local/$hn/g" docker-compose.yml
-sed -i -e "s/docker-pi.local/$hn/g" custom-node-red/settings.js
+sed -e "s/PLACE_HOLDER/$hn/g" docker-compose.yml-template > docker-compose.yml
+sed -e "s/PLACE_HOLDER/$hn/g" custom-node-red/settings.js-template > custom-node-red/settings.js
 docker build -t custom-node-red -t custom-node-red:`date +%Y%m%d%H%M%S` custom-node-red
 docker network create internal

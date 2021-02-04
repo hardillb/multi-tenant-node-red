@@ -1,2 +1,4 @@
 mongodb
 registry/storage
+docker-compose.yml
+custom-node-red/settings.js

@@ -281,7 +281,7 @@ module.exports = {
             upload: false,
             catalogues: [
                 'https://catalogue.nodered.org/catalogue.json',
-                'http://catalogue.docker-pi.local/catalogue.json'
+                'http://catalogue.PLACE_HOLDER/catalogue.json'
             ]
         }
     },

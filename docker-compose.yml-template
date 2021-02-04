@@ -58,11 +58,11 @@ services:
     depends_on:
       - registry
     environment:
-      - "VIRTUAL_HOST=catalogue.docker-pi.local"
-      - "ROOT_DOMAIN=docker-pi.local"
+      - "VIRTUAL_HOST=catalogue.PLACE_HOLDER"
+      - "ROOT_DOMAIN=PLACE_HOLDER"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.manager.rule=HOST(`catalogue.docker-pi.local`)"
+      - "traefik.http.routers.manager.rule=HOST(`catalogue.PLACE_HOLDER`)"
       - "traefik.http.services.manager.loadbalancer.server.port=80"
       - "traefik.http.routers.manager.entrypoints=web"
 
@@ -76,12 +76,12 @@ services:
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
     environment:
-      - "VIRTUAL_HOST=manager.docker-pi.local"
+      - "VIRTUAL_HOST=manager.PLACE_HOLDER"
       - "MONGO_URL=mongodb://mongodb/nodered"
-      - "ROOT_DOMAIN=docker-pi.local"
+      - "ROOT_DOMAIN=PLACE_HOLDER"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.manager.rule=HOST(`manager.docker-pi.local`)"
+      - "traefik.http.routers.manager.rule=HOST(`manager.PLACE_HOLDER`)"
       - "traefik.http.services.manager.loadbalancer.server.port=3000"
       - "traefik.http.routers.manager.entrypoints=web"
 
