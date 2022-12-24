@@ -2,6 +2,10 @@
 
 A collection of Docker container that will implement a Multi Tenant Node-RED environment.
 
+## Deprecated 
+
+This project is now deprecated, there will be no more updates and no support for anybody triyng to use it. If you are looking for a Multi Tenant Node-RED solution I suggest you look at [FlowForge](https://flowforge.com).
+
 ## Download
 
 ```
